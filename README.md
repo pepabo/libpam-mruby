@@ -1,6 +1,6 @@
 # libpam-mruby
 
-A pam module to authenticate user with mruby.
+A PAM module to authenticate user with mruby.
 
 ## Usage
 
