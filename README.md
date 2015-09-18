@@ -15,9 +15,9 @@ Then write a auth handler in mruby like below:
 ```ruby
 def check(username)
   if username == 'kentaro'
-    1
+    true
   else
-    0
+    false
   end
 end
 ```

@@ -9,5 +9,8 @@ int pam_mruby_check(FILE *rbfile, const char *name)
   ret = mrb_funcall(mrb, mrb_top_self(mrb), "check", 1, mrb_str_new_cstr(mrb, name));
   mrb_close(mrb);
 
-  return mrb_fixnum(ret);
+  if (mrb_bool(ret))
+    return 1;
+  else
+    return 0;
 }
