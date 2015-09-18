@@ -11,12 +11,12 @@ end
 
 desc 'mruby.c'
 task :build_mruby_c => :build_mruby do
-  sh 'gcc -Imruby/include -iquote./src -o build/mruby.o -c src/mruby.c'
+  sh 'gcc -Imruby/include -iquote./src -fPIC -fno-stack-protector -o build/mruby.o -c src/mruby.c'
 end
 
 desc 'pam.c'
 task :build_pam_c => :build_mruby_c do
-  sh 'gcc -fPIC -fno-stack-protector -o build/pam.o -c src/pam.c'
+  sh 'gcc -Imruby/include -iquote./src -fPIC -fno-stack-protector -o build/pam.o -c src/pam.c'
 end
 
 desc 'build'

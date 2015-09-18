@@ -1,1 +1,13 @@
 #include "mruby.h"
+
+int pam_mruby_check(FILE *rbfile, const char *name)
+{
+  mrb_value ret;
+
+  mrb_state *mrb = mrb_open();
+  mrb_load_file(mrb, rbfile);
+  ret = mrb_funcall(mrb, mrb_top_self(mrb), "check", 1, mrb_str_new_cstr(mrb, name));
+  mrb_close(mrb);
+
+  return mrb_fixnum(ret);
+}

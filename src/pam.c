@@ -3,24 +3,20 @@
 #include <string.h>
 #include <sys/file.h>
 #include <syslog.h>
+#include <stdio.h>
 
 #include <security/pam_appl.h>
 #include <security/pam_ext.h>
 #include <security/pam_modules.h>
 
-/* expected hook */
-PAM_EXTERN int pam_sm_setcred( pam_handle_t *pamh, int flags, int argc, const char **argv )
-{
-  return PAM_SUCCESS;
-}
-
-/* expected hook, this is where custom stuff happens */
 PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,int argc, const char **argv)
 {
   int i;
+  int ret;
   const char *username;
   const char *password;
   const char *rbfile_name = NULL;
+  FILE *rbfile;
   int debug = 0;
 
   for (i = 0; i < argc; ++i) {
@@ -38,6 +34,10 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,int argc, const
     return PAM_AUTHINFO_UNAVAIL;
   }
   if (debug) pam_syslog(pamh, LOG_DEBUG, "rbfile is %s", rbfile_name);
+  if (!(rbfile = fopen(rbfile_name, "r"))) {
+    pam_syslog(pamh, LOG_ALERT, "couldn't open mruby file %s", rbfile_name);
+    return PAM_AUTHINFO_UNAVAIL;
+  }
 
   // Check user on PAM stack
   if (pam_get_user(pamh, &username, NULL) != PAM_SUCCESS) {
@@ -46,6 +46,11 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,int argc, const
   }
   if (debug) pam_syslog(pamh, LOG_DEBUG, "username is %s", username);
 
-  return PAM_SUCCESS;
-}
+  ret = pam_mruby_check(rbfile, username);
+  fclose(rbfile);
 
+  if (ret > 0)
+    return PAM_SUCCESS;
+  else
+    return PAM_AUTH_ERR;
+}
