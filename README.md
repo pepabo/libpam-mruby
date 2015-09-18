@@ -10,7 +10,7 @@ Add a file that has a line like below into `/etc/.pam.d` (or other location alon
 auth required mruby.so rbfile=/path/to/auth.rb
 ```
 
-Then write a auth handler in mruby like below:
+Then write an auth handler in mruby like below:
 
 ```ruby
 def check(username)
