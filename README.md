@@ -22,6 +22,8 @@ def check(username)
 end
 ```
 
+`check()` method at top-level is called when your mruby handler is executed.
+
 ## How to Build
 
 ### Using Docker
