@@ -21,7 +21,7 @@ end
 
 desc 'build'
 task :build => [:build_mruby_c, :build_pam_c] do
-  sh 'ld -x --shared -o build/mruby.so build/mruby.o build/pam.o'
+  sh 'gcc -shared -Wl,-soname=pam_mruby.so.1 -lm -lpam -o build/pam_mruby.so build/mruby.o build/pam.o mruby/build/host/lib/libmruby.a'
 end
 
 desc 'install'
