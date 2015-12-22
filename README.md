@@ -15,7 +15,7 @@ Then write an auth handler in mruby like below.
 `auth.rb`:
 
 ```ruby
-def check(username, password)
+def authenticate(username, password)
   if username == 'kentaro' && password == 'p@ssw0rd'
     true
   else
@@ -24,7 +24,7 @@ def check(username, password)
 end
 ```
 
-`check()` method at top-level is called when your mruby handler is executed.
+`authenticate()` method at top-level is called when your mruby handler is executed.
 
 ## How to Build
 
