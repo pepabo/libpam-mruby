@@ -24,8 +24,18 @@ task :build => [:build_mruby_c, :build_pam_c] do
   sh 'ld -x --shared -o build/mruby.so build/mruby.o build/pam.o'
 end
 
+desc 'install'
+task :install => 'build/mruby.so' do
+  sh "install build/mruby.so /usr/lib64/security/pam_mruby.so"
+end
+
 desc 'test'
 task :test => :build do
+end
+
+desc 'clean'
+task :clean do
+  sh "rm -rf mruby/ build/*.*"
 end
 
 task :default => :test
