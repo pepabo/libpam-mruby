@@ -6,7 +6,7 @@ int pam_mruby_check(FILE *rbfile, const char *name, const char *passwd)
 
   mrb_state *mrb = mrb_open();
   mrb_load_file(mrb, rbfile);
-  ret = mrb_funcall(mrb, mrb_top_self(mrb), "check", 1,
+  ret = mrb_funcall(mrb, mrb_top_self(mrb), "check", 2,
                     mrb_str_new_cstr(mrb, name),
                     mrb_str_new_cstr(mrb, passwd));
   mrb_close(mrb);
