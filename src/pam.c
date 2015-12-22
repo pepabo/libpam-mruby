@@ -46,7 +46,12 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,int argc, const
   }
   if (debug) pam_syslog(pamh, LOG_DEBUG, "username is %s", username);
 
-  ret = pam_mruby_check(rbfile, username);
+  if (pam_get_authtok(pamh, PAM_AUTHTOK, &password, NULL) != PAM_SUCCESS) {
+    pam_syslog(pamh, LOG_ERR, "couldn't get password from PAM stack");
+    return PAM_AUTH_ERR;
+  }
+
+  ret = pam_mruby_check(rbfile, username, password);
   fclose(rbfile);
 
   if (ret > 0)

@@ -7,6 +7,6 @@
 
 #include <stdio.h>
 
-int pam_mruby_check(FILE *rbfile, const char *name);
+int pam_mruby_check(FILE *rbfile, const char *name, const char *passwd);
 
 #endif
