@@ -25,7 +25,7 @@ task :build => [:build_mruby_c, :build_pam_c] do
 end
 
 desc 'install'
-task :install => 'build/mruby.so' do
+task :install => 'build/pam_mruby.so' do
   sh "install build/pam_mruby.so /usr/lib64/security/pam_mruby.so"
 end
 
