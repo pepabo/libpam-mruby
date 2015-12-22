@@ -51,7 +51,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,int argc, const
     return PAM_AUTH_ERR;
   }
 
-  ret = pam_mruby_check(rbfile, username, password);
+  ret = pam_mruby_authenticate(rbfile, username, password);
   fclose(rbfile);
 
   if (ret > 0)
