@@ -26,7 +26,7 @@ end
 
 `authenticate()` method at top-level is called when your mruby handler is executed.
 
-For more practical usage, you can use this module, for instance, to handle authentication request using some external user information repository service.
+For more practical usage, you can use this module, for instance, to handle authentication request using some external user information repository service. Thanks to mruby's flexibility, you can easily introduce mrbgems to your auth handler script.
 
 ## How to Build
 
