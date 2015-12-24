@@ -26,6 +26,8 @@ end
 
 `authenticate()` method at top-level is called when your mruby handler is executed.
 
+For more practical usage, you can use this module, for instance, to handle authentication request using some external user information repository service.
+
 ## How to Build
 
 ### Using Docker
