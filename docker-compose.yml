@@ -1,6 +1,6 @@
 libpam-mruby:
   dockerfile: Dockerfile
   build: .
-  command: cp -a /usr/local/src/libpam-mruby/build/mruby.so /tmp/mruby.so
+  command: cp -a /usr/local/src/libpam-mruby/build/pam_mruby.so /tmp/pam_mruby.so
   volumes:
     - ./build:/tmp:rw
